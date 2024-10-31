@@ -1,0 +1,90 @@
+.container
+    margin: 50px auto
+
+    .wrapper
+        display: flex
+        gap: 40px
+        margin-top: 30px
+
+        @media (max-width: 768px)
+            flex-direction: column
+
+        .image
+            width: 100%
+            max-width: 200px
+            height: auto
+            max-height: 250px
+            aspect-ratio: auto
+            object-fit: contain
+            margin: 0 auto
+
+            @media (max-width: 768px)
+                max-height: 200px
+
+        .details
+            width: 100%
+
+            .top
+                display: flex
+                justify-content: space-between
+                gap: 20px
+
+                @media (max-width: 480px)
+                    flex-direction: column
+
+                .left h2
+                    font-size: clamp(1rem, 0.88rem + 0.49vw, 1.25rem)
+                    font-weight: 900
+                    margin-top: 0
+
+                .right
+                    @media (max-width: 480px)
+                        display: flex
+                        justify-content: flex-end
+
+                    button
+                        width: max-content
+                        display: flex
+                        align-items: center
+                        gap: 10px
+                        border: 1px solid #E2E8F0
+                        border-radius: 5px
+                        font-size: 14px
+                        padding: 8px 20px
+
+            hr
+                margin: 20px 0 40px 0
+
+            .bottom
+                display: flex
+                justify-content: space-between
+                gap: 70px
+
+                @media (max-width: 480px)
+                    flex-direction: column
+                    gap: 0
+
+                .left
+                    b
+                        font-weight: 900
+
+                .right
+                    display: flex
+                    flex-direction: column
+                    gap: 10px
+                    text-align: end
+
+                    @media (max-width: 480px)
+                        flex-direction: row
+                        align-items: center
+                        justify-content: flex-end
+
+                    strong
+                        font-size: clamp(1rem, 0.88rem + 0.49vw, 1.25rem)
+                        font-weight: 900
+
+                    button
+                        border-radius: 5px
+                        background-color: #FFC700
+                        color: white
+                        padding: 10px 20px
