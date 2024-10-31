@@ -1,12 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { useSelector, useDispatch, TypedUseSelectorHook } from 'react-redux';
 
-// Temporary placeholder reducer
-const placeholderReducer = (state = {}) => state;
+import favoritesReducer from './features/favoritesSlice';
 
 export const store = configureStore({
   reducer: {
-    placeholder: placeholderReducer,
+    favorites: favoritesReducer,
   },
   devTools: process.env.NODE_ENV !== 'production',
 });
