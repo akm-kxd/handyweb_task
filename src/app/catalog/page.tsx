@@ -10,18 +10,38 @@ import Filters from '@/components/Filters';
 import Sort from '@/components/Sort';
 import ProductCard from '@/components/ProductCard';
 
-export default async function Catalog() {
-  const categories = await instance
-    .get<Category[]>('/products/categories')
-    .then((res) => res.data);
-  const products = await instance
-    .get<Product[]>('/products')
-    .then((res) => res.data);
+interface Props {
+  searchParams: {
+    categories?: string;
+    sort?: 'asc' | 'desc';
+  };
+}
+
+export default async function Catalog({ searchParams }: Props) {
+  const { categories, sort } = await searchParams;
+
+  const { data: categoriesList } = await instance.get<Category[]>(
+    '/products/categories'
+  );
+  let { data: productsList } = await instance.get<Product[]>('/products', {
+    params: { sort },
+  });
+
+  // Фильтруем по категориям на клиенте, так как API не поддерживает множественную фильтрацию
+  if (categories) {
+    const selectedCategories = categories.split(',');
+    productsList = productsList.filter((product) =>
+      selectedCategories.includes(product.category)
+    );
+  }
 
   return (
     <section>
       <div className={`container ${styles.wrapper}`}>
-        <Filters data={categories} />
+        <Filters
+          data={categoriesList}
+          selectedCategories={categories?.split(',') || []}
+        />
         <div className={styles.content}>
           <Breadcrumbs
             aria-label='breadcrumb'
@@ -33,7 +53,7 @@ export default async function Catalog() {
           <h3>Catalog</h3>
           <Sort />
           <div className={styles.grid}>
-            {products.map((product) => (
+            {productsList.map((product) => (
               <ProductCard key={product.id} data={product} />
             ))}
           </div>
