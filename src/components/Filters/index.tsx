@@ -12,7 +12,7 @@ const Filters = ({ data }: Props) => {
   return (
     <div className={styles.filters}>
       <h4>Filters</h4>
-      <FormGroup>
+      <FormGroup className={styles.list}>
         {data.map((category, index) => (
           <FormControlLabel
             key={index}
