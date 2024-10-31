@@ -4,13 +4,18 @@ import { Breadcrumbs } from '@mui/material';
 import Link from 'next/link';
 
 import { Category } from '@/types/Category';
+import { Product } from '@/types/Product';
 import instance from '@/utils/instance';
 import Filters from '@/components/Filters';
 import Sort from '@/components/Sort';
+import ProductCard from '@/components/ProductCard';
 
 export default async function Catalog() {
   const categories = await instance
     .get<Category[]>('/products/categories')
+    .then((res) => res.data);
+  const products = await instance
+    .get<Product[]>('/products')
     .then((res) => res.data);
 
   return (
@@ -27,6 +32,11 @@ export default async function Catalog() {
           </Breadcrumbs>
           <h3>Catalog</h3>
           <Sort />
+          <div className={styles.grid}>
+            {products.map((product) => (
+              <ProductCard key={product.id} data={product} />
+            ))}
+          </div>
         </div>
       </div>
     </section>
