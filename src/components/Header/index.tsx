@@ -1,9 +1,28 @@
+'use client';
+
 import styles from './styles.module.sass';
 
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { useDebouncedCallback } from 'use-debounce';
 import Image from 'next/image';
 import Link from 'next/link';
 
 const Header = () => {
+  const searchParams = useSearchParams();
+  const params = new URLSearchParams(searchParams);
+  const pathname = usePathname();
+  const { replace } = useRouter();
+
+  const handleSearch = useDebouncedCallback((term: string) => {
+    if (term) {
+      params.set('query', term);
+    } else {
+      params.delete('query');
+    }
+
+    replace(`${pathname}?${params.toString()}`);
+  }, 300);
+
   return (
     <header className={styles.header}>
       <div className={styles.top}>
@@ -16,12 +35,16 @@ const Header = () => {
             height={60}
             priority
           />
-          <form>
-            <input type='text' placeholder='Search' />
-            <button type='submit'>
-              <Image src='/search.svg' alt='' width={20} height={20} />
-            </button>
-          </form>
+          <div className={styles.searchbox}>
+            <input
+              type='text'
+              name='search'
+              placeholder='Search'
+              defaultValue={params.get('query') || ''}
+              onChange={(event) => handleSearch(event.target.value)}
+            />
+            <Image src='/search.svg' alt='' width={20} height={20} />
+          </div>
           <div className={styles.favourite}>
             <Link href='/favorites'>
               <Image src='/heart.svg' alt='' width={20} height={20} />

@@ -14,11 +14,12 @@ interface Props {
   searchParams: {
     categories?: string;
     sort?: 'asc' | 'desc';
+    query?: string;
   };
 }
 
 export default async function Catalog({ searchParams }: Props) {
-  const { categories, sort } = await searchParams;
+  const { categories, sort, query } = await searchParams;
 
   const { data: categoriesList } = await instance.get<Category[]>(
     '/products/categories'
@@ -32,6 +33,12 @@ export default async function Catalog({ searchParams }: Props) {
     const selectedCategories = categories.split(',');
     productsList = productsList.filter((product) =>
       selectedCategories.includes(product.category)
+    );
+  }
+
+  if (query) {
+    productsList = productsList.filter((product) =>
+      product.title.toLowerCase().includes(query.toLowerCase())
     );
   }
 
