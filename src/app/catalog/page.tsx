@@ -11,11 +11,11 @@ import Sort from '@/components/Sort';
 import ProductCard from '@/components/ProductCard';
 
 interface Props {
-  searchParams: {
+  searchParams: Promise<{
     categories?: string;
     sort?: 'asc' | 'desc';
     query?: string;
-  };
+  }>;
 }
 
 export default async function Catalog({ searchParams }: Props) {

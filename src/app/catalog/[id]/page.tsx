@@ -10,9 +10,7 @@ import ProductRating from '@/components/ProductRating';
 import FavButton from './FavButton';
 
 interface Props {
-  params: {
-    id: number;
-  };
+  params: Promise<{ id: number }>;
 }
 
 const Product = async ({ params }: Props) => {
