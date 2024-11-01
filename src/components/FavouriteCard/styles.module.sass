@@ -1,0 +1,55 @@
+.card
+    display: flex
+    align-items: center
+    justify-content: space-between
+    gap: 20px
+
+    @media (max-width: 768px)
+        flex-direction: column
+        align-items: flex-start
+
+    .left
+        display: flex
+        align-items: center
+        gap: 50px
+
+        @media (max-width: 768px)
+            gap: 20px
+
+        img
+            width: 100%
+            max-width: 140px
+            height: auto
+            aspect-ratio: 1 / 1
+            object-fit: contain
+
+            @media (max-width: 992px)
+                max-width: 100px
+
+        p
+            font-size: 14px
+            margin: 0
+
+        h3
+            font-size: clamp(1rem, 0.88rem + 0.49vw, 1.25rem)
+            font-weight: 900
+
+            a:hover
+                text-decoration: underline
+
+    .right
+        display: flex
+        align-items: center
+        gap: 20px
+
+        @media (max-width: 768px)
+            gap: 10px
+
+        strong
+            font-size: clamp(1rem, 0.88rem + 0.49vw, 1.25rem)
+            font-weight: 900
+            white-space: nowrap
+
+        button
+            color: #707070
+            padding: 0

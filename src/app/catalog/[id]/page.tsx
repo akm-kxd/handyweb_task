@@ -7,6 +7,7 @@ import Image from 'next/image';
 import { Product as IProduct } from '@/types/Product';
 import instance from '@/utils/instance';
 import ProductRating from '@/components/ProductRating';
+import FavButton from './FavButton';
 
 interface Props {
   params: {
@@ -45,10 +46,7 @@ const Product = async ({ params }: Props) => {
               <ProductRating data={productData.rating} />
             </div>
             <div className={styles.right}>
-              <button>
-                Add to favourite{' '}
-                <Image src='/heart.svg' alt='' width={20} height={20} />
-              </button>
+              <FavButton data={productData} />
             </div>
           </div>
           <hr color='#E2E8F0' />
